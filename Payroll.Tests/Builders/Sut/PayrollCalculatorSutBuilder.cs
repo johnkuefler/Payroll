@@ -25,18 +25,18 @@ namespace Payroll.Tests.Builders.Sut
 
             taxBracket = new TaxBracket
             {
-                TaxRate = 0.2
+                TaxRate = 0
             };
 
             employee = new Employee
             {
-                HourlyRate = 25,
+                HourlyRate = 0,
                 Seniority = false
             };
 
             timeCard = new TimeCard
             {
-                TotalHours = 40
+                TotalHours = 0
             };
         }
 

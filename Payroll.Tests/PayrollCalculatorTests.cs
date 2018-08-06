@@ -6,11 +6,13 @@ namespace Payroll.Tests
 {
     public class PayrollCalculatorTests
     {
-        [Fact]
-        public void CalculatePayroll_ZeroHours_ShouldReturnZero()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public void CalculatePayroll_LessThanOrEqualZeroTimecardHours_ShouldReturnZero(int hours)
         {
             // arrange
-            var sut = new PayrollCalculatorSutBuilder().WithTimeCardHours(0).Build();
+            var sut = new PayrollCalculatorSutBuilder().WithTimeCardHours(hours).Build();
 
             // act
             double payroll = sut.CalculatePayroll(DateTime.Now, DateTime.Now.AddDays(7), "1");
@@ -18,7 +20,6 @@ namespace Payroll.Tests
             // assert
             Assert.Equal(0, payroll);
         }
-
 
         [Theory]
         [InlineData(0.2, 40, 40, false, 1280)]
@@ -40,21 +41,6 @@ namespace Payroll.Tests
 
             // assert
             Assert.Equal(payroll, amount);
-        }
-
-
-        [Fact]
-        public void CalculatePayroll_NegativeHours_ShouldReturnZero()
-        {
-            // arrange
-            var sut = new PayrollCalculatorSutBuilder()
-                .WithTimeCardHours(-1).Build();
-
-            // act
-            double amount = sut.CalculatePayroll(DateTime.Now, DateTime.Now.AddDays(7), "1");
-
-            // assert
-            Assert.Equal(0, amount);
         }
     }
 }
