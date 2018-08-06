@@ -21,9 +21,13 @@ namespace Payroll.Core
 
         public double CalculatePayroll(DateTime startDate, DateTime endDate, string employeeId)
         {
-            Employee employee = _emplyeeService.GetById(employeeId);
-
             TimeCard timeCard = _timeCardService.GetEmployeeTimeCard(employeeId, startDate, endDate);
+            if (timeCard.TotalHours <= 0)
+            {
+                return 0;
+            }
+
+            Employee employee = _emplyeeService.GetById(employeeId);
 
             TaxBracket taxBracket = _taxService.GetTaxBracket(employee.HourlyRate);
 
