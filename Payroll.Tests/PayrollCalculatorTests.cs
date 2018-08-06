@@ -42,7 +42,7 @@ namespace Payroll.Tests
         [InlineData(0.30, 60, 50, true, 2170)]
         [InlineData(0, 10, 40, true, 500)]
         public void CalculatePayroll_ValidInputData_ShouldProduceCorrectPayroll(double taxRate, 
-            double hourlyRate, int hours, bool seniority, double payroll)
+            double hourlyRate, int timeCardHours, bool seniority, double payroll)
         {
             // arrange
             Mock<ITaxService> taxServiceMock = new Mock<ITaxService>();
@@ -57,7 +57,7 @@ namespace Payroll.Tests
 
             timeCardServiceMock
                 .Setup(x => x.GetEmployeeTimeCard(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-                .Returns(new TimeCardTestBuilder().WithTotalHours(hours).Build());
+                .Returns(new TimeCardTestBuilder().WithTotalHours(timeCardHours).Build());
 
             var sut = new PayrollCalculator(timeCardServiceMock.Object, employeeServiceMock.Object,
                 taxServiceMock.Object);
