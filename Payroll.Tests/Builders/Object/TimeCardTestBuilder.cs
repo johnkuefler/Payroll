@@ -8,9 +8,9 @@ namespace Payroll.Tests.Builders.Object
 
         public TimeCardTestBuilder()
         {
-            timeCard = new TimeCard()
+            timeCard = new TimeCard
             {
-                TotalHours = 40,
+                TotalHours = 0,
             };
         }
 

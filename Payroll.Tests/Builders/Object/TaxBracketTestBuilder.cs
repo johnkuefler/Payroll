@@ -10,7 +10,7 @@ namespace Payroll.Tests.Builders.Object
         {
             taxBracket = new TaxBracket  
             {
-               TaxRate = 0.15
+               TaxRate = 0
             };
         }
 

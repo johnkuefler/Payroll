@@ -9,8 +9,10 @@ namespace Payroll.Tests
 {
     public class PayrollCalculatorTests
     {
-        [Fact]
-        public void CalculatePayroll_ZeroHours_ShouldReturnZero()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public void CalculatePayroll_LessThanOrEqualZeroTimecardHours_ShouldReturnZero(int hours)
         {
             // arrange
             Mock<ITaxService> taxServiceMock = new Mock<ITaxService>();
@@ -23,7 +25,7 @@ namespace Payroll.Tests
 
             timeCardServiceMock
                 .Setup(x => x.GetEmployeeTimeCard(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-                .Returns(new TimeCardTestBuilder().WithTotalHours(0).Build());
+                .Returns(new TimeCardTestBuilder().WithTotalHours(hours).Build());
 
             var sut = new PayrollCalculator(timeCardServiceMock.Object, employeeServiceMock.Object,
                 taxServiceMock.Object);
@@ -67,35 +69,6 @@ namespace Payroll.Tests
 
             // assert
             Assert.Equal(payroll, amount);
-        }
-
-
-        [Fact]
-        public void CalculatePayroll_NegativeHours_ShouldReturnZero()
-        {
-            // arrange
-            Mock<ITaxService> taxServiceMock = new Mock<ITaxService>();
-            Mock<IEmployeeService> employeeServiceMock = new Mock<IEmployeeService>();
-            Mock<ITimeCardService> timeCardServiceMock = new Mock<ITimeCardService>();
-
-            taxServiceMock.Setup(x => x.GetTaxBracket(It.IsAny<double>()))
-                .Returns(new TaxBracketTestBuilder().Build());
-
-            employeeServiceMock.Setup(x => x.GetById(It.IsAny<string>()))
-                .Returns(new EmployeeTestBuilder().Build());
-
-            timeCardServiceMock
-                .Setup(x => x.GetEmployeeTimeCard(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-                .Returns(new TimeCardTestBuilder().WithTotalHours(-1).Build());
-
-            var sut = new PayrollCalculator(timeCardServiceMock.Object, employeeServiceMock.Object,
-                taxServiceMock.Object);
-
-            // act
-            double amount = sut.CalculatePayroll(DateTime.Now, DateTime.Now.AddDays(7), "1");
-
-            // assert
-            Assert.Equal(0, amount);
         }
     }
 }

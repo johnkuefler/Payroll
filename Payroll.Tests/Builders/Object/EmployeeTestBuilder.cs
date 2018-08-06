@@ -12,7 +12,7 @@ namespace Payroll.Tests.Builders.Object
             {
                 Id = "1",
                 Name = "Test Employee",
-                HourlyRate = 40,
+                HourlyRate = 0,
                 Seniority = false
             };
         }
