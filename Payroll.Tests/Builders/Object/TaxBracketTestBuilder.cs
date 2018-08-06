@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Payroll.Services.POCO;
+﻿using Payroll.Services.POCO;
 
-namespace Payroll.Tests.Builders
+namespace Payroll.Tests.Builders.Object
 {
     public class TaxBracketTestBuilder
     {
-        private TaxBracket _taxBracket;
+        TaxBracket taxBracket;
 
         public TaxBracketTestBuilder()
         {
-            _taxBracket = new TaxBracket  
+            taxBracket = new TaxBracket  
             {
                TaxRate = 0.15
             };
@@ -19,14 +16,14 @@ namespace Payroll.Tests.Builders
 
         public TaxBracketTestBuilder WithTaxRate(double taxRate)
         {
-            _taxBracket.TaxRate = taxRate;
+            taxBracket.TaxRate = taxRate;
             return this;
         }
 
       
         public TaxBracket Build()
         {
-            return _taxBracket;
+            return taxBracket;
         }
     }
 }

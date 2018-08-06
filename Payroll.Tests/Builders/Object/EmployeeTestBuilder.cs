@@ -1,17 +1,14 @@
 ﻿using Payroll.Services.POCO;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Payroll.Tests.Builders
+namespace Payroll.Tests.Builders.Object
 {
     public class EmployeeTestBuilder
     {
-        private Employee _employee;
+        Employee employee;
 
         public EmployeeTestBuilder()
         {
-            _employee = new Employee
+            employee = new Employee
             {
                 Id = "1",
                 Name = "Test Employee",
@@ -22,19 +19,19 @@ namespace Payroll.Tests.Builders
 
         public EmployeeTestBuilder WithHourlyRate(double rate)
         {
-            _employee.HourlyRate = rate;
+            employee.HourlyRate = rate;
             return this;
         }
 
         public EmployeeTestBuilder WithSeniority(bool seniority)
         {
-            _employee.Seniority = seniority;
+            employee.Seniority = seniority;
             return this;
         }
 
         public Employee Build()
         {
-            return _employee;
+            return employee;
         }
     }
 }
