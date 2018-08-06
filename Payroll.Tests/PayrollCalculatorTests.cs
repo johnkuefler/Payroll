@@ -1,8 +1,4 @@
 using System;
-using Moq;
-using Payroll.Core;
-using Payroll.Services;
-using Payroll.Tests.Builders.Object;
 using Payroll.Tests.Builders.Sut;
 using Xunit;
 
@@ -14,7 +10,7 @@ namespace Payroll.Tests
         public void CalculatePayroll_ZeroHours_ShouldReturnZero()
         {
             // arrange
-            PayrollCalculator sut = new PayrollCalculatorSutBuilder().WithTimeCardHours(0).Build();
+            var sut = new PayrollCalculatorSutBuilder().WithTimeCardHours(0).Build();
 
             // act
             double payroll = sut.CalculatePayroll(DateTime.Now, DateTime.Now.AddDays(7), "1");
@@ -33,7 +29,7 @@ namespace Payroll.Tests
             double hourlyRate, int timeCardHours, bool seniority, double payroll)
         {
             // arrange
-            PayrollCalculator sut = new PayrollCalculatorSutBuilder()
+            var sut = new PayrollCalculatorSutBuilder()
                 .WithTaxBracketTaxRate(taxRate)
                 .WithEmployeeHourlyRate(hourlyRate)
                 .WithEmployeeSeniority(seniority)
@@ -51,7 +47,7 @@ namespace Payroll.Tests
         public void CalculatePayroll_NegativeHours_ShouldReturnZero()
         {
             // arrange
-            PayrollCalculator sut = new PayrollCalculatorSutBuilder()
+            var sut = new PayrollCalculatorSutBuilder()
                 .WithTimeCardHours(-1).Build();
 
             // act
